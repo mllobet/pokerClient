@@ -100,22 +100,10 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		raiseButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				amountDialog();
-				if (amount <= 0) {
-					// TODO toast: amount is not a natural number
-					return;
-				}
-				if (amount > money) {
-					// TODO toast: not enough money
-					return;
-				}
-				if (amount <= curbet) {
-					// TODO toast: raise is too low
-					return;
-				}
-				writeLine("raise "+amount);
 			}
 		});
-
+		
+	
 		foldButton = (Button)findViewById(R.id.foldButton);
 		foldButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
@@ -153,6 +141,24 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		
 	}
 	
+	private void processRaise() {
+		if (amount <= 0) {
+			Toast.makeText(getApplicationContext(), "Invalid amount", Toast.LENGTH_LONG).show();
+			// TODO toast: amount is not a natural number
+			return;
+		}
+		if (amount > money) {
+			// TODO toast: not enough money
+			return;
+		}
+		if (amount <= curbet) {
+			// TODO toast: raise is too low
+			return;
+		}
+		writeLine("raise "+amount);
+	}
+
+	
 	@Override
 	public void onBackPressed() {
 		//To disconnect the connection rather than closing the app.
@@ -168,6 +174,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				amount = Integer.parseInt(input.getText().toString());
 				dialog.dismiss();
+				processRaise();
 			}
 		});
 
@@ -209,6 +216,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		} else if (l.startsWith("money ")) {
 			String msg = l.substring(6);
 			money = Integer.parseInt(msg);
+			currentMoneyView.setText("$ " + money);
 		}
 	}
 
