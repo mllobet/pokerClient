@@ -48,6 +48,12 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 	ChatAdapter cadapter;
 	ListView lview;
+	private Button raiseButton = null;
+	private Button foldButton = null;
+	private Button checkButton = null;
+	private Button callButton = null;
+	private Button allinButton = null;
+	private Button betButton = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +63,37 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		lview = (ListView)findViewById(R.id.chat_history);
 		cadapter = new ChatAdapter(getApplicationContext());
 		lview.setAdapter(cadapter);
-		
 
+		raiseButton = (Button)findViewById(R.id.raiseButton);
+		raiseButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) { writeLine("raise"); }
+		});
+
+		foldButton = (Button)findViewById(R.id.foldButton);
+		foldButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) { writeLine("fold"); }
+		});
+
+		checkButton = (Button)findViewById(R.id.checkButton);
+		checkButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) { writeLine("check"); }
+		});
+
+		callButton = (Button)findViewById(R.id.callButton);
+		callButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) { writeLine("call"); }
+		});
+
+		allinButton = (Button)findViewById(R.id.allinButton);
+		allinButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) { writeLine("allin"); }
+		});
+
+		betButton = (Button)findViewById(R.id.betButton);
+		betButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) { writeLine("bet"); }
+		});
+		
 	}
 	
 	@Override
@@ -89,9 +124,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		});
 	}
 	
-	public void writeLine(View view)
-	{
-		String str = "wololo";
+	public void writeLine(String str) {
 		chatService.writeString(str);
 	}
 	
