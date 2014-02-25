@@ -32,7 +32,10 @@ package lo.wolo.pokerclient;
 import java.util.UUID;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +68,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	int curbet = 0;
 	int minbet = 1;
 	int money = 10;
+	int amount = 0;
 	static final int cardDrawables[] = {
 		R.drawable.card_00, R.drawable.card_01, R.drawable.card_02, R.drawable.card_03, R.drawable.card_04,
 		R.drawable.card_05, R.drawable.card_06, R.drawable.card_07, R.drawable.card_08, R.drawable.card_09,
@@ -92,9 +96,23 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		lview.setAdapter(cadapter);
 
 		raiseButton = (Button)findViewById(R.id.raiseButton);
+		raiseButton.setEnabled(true);
 		raiseButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				writeLine("raise");
+				amountDialog();
+				if (amount <= 0) {
+					// TODO toast: amount is not a natural number
+					return;
+				}
+				if (amount > money) {
+					// TODO toast: not enough money
+					return;
+				}
+				if (amount <= curbet) {
+					// TODO toast: raise is too low
+					return;
+				}
+				writeLine("raise "+amount);
 			}
 		});
 
@@ -141,6 +159,27 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		chatService.remoteDisconnect();
 		super.onBackPressed();
 	}
+
+	private void amountDialog() {
+		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				amount = Integer.parseInt(input.getText().toString());
+				dialog.dismiss();
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				amount = 0;
+				dialog.cancel();
+			}
+		});
+		alert.show();
+	}
+
 
 	private void parseLine(String l) {
 		if (l.startsWith("cmds ")) {
