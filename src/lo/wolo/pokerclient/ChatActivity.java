@@ -58,12 +58,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		cadapter = new ChatAdapter(getApplicationContext());
 		lview.setAdapter(cadapter);
 		
-		Button b = (Button)findViewById(R.id.send_button);
-		b.setOnClickListener(new View.OnClickListener() {	
-			public void onClick(View arg0) {
-				writeLine(arg0);
-			}
-		});
+
 	}
 	
 	@Override
@@ -96,10 +91,8 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	
 	public void writeLine(View view)
 	{
-		TextView tv = (TextView)findViewById(R.id.message_text);
-		String str = tv.getText().toString();
+		String str = "wololo";
 		chatService.writeString(str);
-		tv.setText("");
 	}
 	
 	@Override
