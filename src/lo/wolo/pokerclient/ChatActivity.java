@@ -51,6 +51,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 	ChatAdapter cadapter;
 	ListView lview;
+	TextView currentMoneyView;
 	private Button raiseButton = null;
 	private Button foldButton = null;
 	private Button checkButton = null;
