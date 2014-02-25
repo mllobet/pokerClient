@@ -30,6 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 package lo.wolo.pokerclient;
 
 import java.util.UUID;
+import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
@@ -66,32 +67,45 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 		raiseButton = (Button)findViewById(R.id.raiseButton);
 		raiseButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) { writeLine("raise"); }
+			public void onClick(View arg0) {
+				writeLine("raise");
+			}
 		});
 
 		foldButton = (Button)findViewById(R.id.foldButton);
 		foldButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) { writeLine("fold"); }
+			public void onClick(View arg0) {
+				writeLine("fold");
+			}
 		});
 
 		checkButton = (Button)findViewById(R.id.checkButton);
 		checkButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) { writeLine("check"); }
+			public void onClick(View arg0) {
+				writeLine("check");
+			}
 		});
 
 		callButton = (Button)findViewById(R.id.callButton);
 		callButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) { writeLine("call"); }
+			public void onClick(View arg0) {
+				writeLine("call");
+			}
 		});
 
 		allinButton = (Button)findViewById(R.id.allinButton);
 		allinButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) { writeLine("allin"); }
+			public void onClick(View arg0) {
+				writeLine("allin");
+			}
 		});
 
 		betButton = (Button)findViewById(R.id.betButton);
+		betButton.setEnabled(true);
 		betButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) { writeLine("bet"); }
+			public void onClick(View arg0) {
+				writeLine("bet");
+			}
 		});
 		
 	}
@@ -103,12 +117,28 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		super.onBackPressed();
 	}
 
+	private void parseLine(String l) {
+		if (l.startsWith("cmds ")) {
+			String msg = l.substring(5);
+			int cmds = Integer.parseInt(msg);
+			raiseButton.setEnabled((cmds & Constants.RAISE) != 0);
+			foldButton .setEnabled((cmds & Constants.FOLD ) != 0);
+			checkButton.setEnabled((cmds & Constants.CHECK) != 0);
+			callButton .setEnabled((cmds & Constants.CALL ) != 0);
+			allinButton.setEnabled((cmds & Constants.ALLIN) != 0);
+			betButton  .setEnabled((cmds & Constants.BET  ) != 0);
+		}
+	}
+
 	@Override
 	public void lineReceived(int line) {
 		myHandler.post(new Runnable() {
 			public void run() {
-				cadapter.setNewChatList(chatService.getLines());
+				List<String> lines = chatService.getLines();
+				String l = lines.get(lines.size()-1);
+				cadapter.setNewChatList(lines);
 				cadapter.notifyDataSetChanged();
+				parseLine(l);
 			}
 		});
 	}
