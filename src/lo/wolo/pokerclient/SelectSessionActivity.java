@@ -539,7 +539,7 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == RESULT_OK && requestCode == DISCOVERY_SETUP){
+		if(resultCode == RESULT_OK && requestCode == DISCOVERY_SETUP && chatService != null){
 			String user = data.getStringExtra("USER_NAME");
 			String device = data.getStringExtra("DEVICE_NAME");
 			
