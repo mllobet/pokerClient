@@ -55,7 +55,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 	ChatAdapter cadapter;
 	ListView lview;
-	TextView currentMoneyView;
+	TextView currentMoneyView = null;
 	private Button raiseButton = null;
 	private Button foldButton = null;
 	private Button checkButton = null;
@@ -89,6 +89,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);
 
+		currentMoneyView = (TextView)findViewById(R.id.currentMoney);
+		currentMoneyView.setText("$ " + money);
+
 		card1Image = (ImageView)findViewById(R.id.leftCardImage);
 		card2Image = (ImageView)findViewById(R.id.rightCardImage);
 
@@ -97,14 +100,12 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		lview.setAdapter(cadapter);
 
 		raiseButton = (Button)findViewById(R.id.raiseButton);
-		raiseButton.setEnabled(true);
 		raiseButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				amountDialog();
+				raiseDialog();
 			}
 		});
 		
-	
 		foldButton = (Button)findViewById(R.id.foldButton);
 		foldButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
@@ -159,6 +160,18 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		writeLine("raise "+amount);
 	}
 
+	private void processBet() {
+		if (amount <= 0) {
+			Toast.makeText(getApplicationContext(), "Invalid amount", Toast.LENGTH_LONG).show();
+			// TODO toast: amount is not a natural number
+			return;
+		}
+		if (amount > money) {
+			// TODO toast: not enough money
+			return;
+		}
+		writeLine("bet "+amount);
+	}
 	
 	@Override
 	public void onBackPressed() {
@@ -167,7 +180,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		super.onBackPressed();
 	}
 
-	private void amountDialog() {
+	private void raiseDialog() {
 		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		final EditText input = new EditText(this);
 		input.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -189,6 +202,27 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		alert.show();
 	}
 
+	private void betDialog() {
+		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+		alert.setView(input);
+		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				amount = Integer.parseInt(input.getText().toString());
+				dialog.dismiss();
+				processBet();
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				amount = 0;
+				dialog.cancel();
+			}
+		});
+		alert.show();
+	}
 
 	private void parseLine(String l) {
 		if (l.startsWith("cmds ")) {
