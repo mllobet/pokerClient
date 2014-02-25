@@ -60,6 +60,8 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	private ImageView card2Image = null;
 	int card1 = -1;
 	int card2 = -1;
+	int minbet = 1;
+	int money = 10;
 	static final int cardDrawables[] = {
 		R.drawable.card_00, R.drawable.card_01, R.drawable.card_02, R.drawable.card_03, R.drawable.card_04,
 		R.drawable.card_05, R.drawable.card_06, R.drawable.card_07, R.drawable.card_08, R.drawable.card_09,
@@ -154,6 +156,12 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			card2 = Integer.parseInt(cards[1]);
 			card1Image.setImageResource(cardDrawables[card1]);
 			card2Image.setImageResource(cardDrawables[card2]);
+		} else if (l.startsWith("minbet ")) {
+			String msg = l.substring(7);
+			minbet = Integer.parseInt(msg);
+		} else if (l.startsWith("money ")) {
+			String msg = l.substring(6);
+			money = Integer.parseInt(msg);
 		}
 	}
 
