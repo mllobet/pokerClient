@@ -35,6 +35,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	private ImageView card2Image = null;
 	int card1 = -1;
 	int card2 = -1;
+	int curbet = 0;
 	int minbet = 1;
 	int money = 10;
 	static final int cardDrawables[] = {
@@ -83,7 +85,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 		card1Image = (ImageView)findViewById(R.id.leftCardImage);
 		card2Image = (ImageView)findViewById(R.id.rightCardImage);
-		
+
 		lview = (ListView)findViewById(R.id.chat_history);
 		cadapter = new ChatAdapter(getApplicationContext());
 		lview.setAdapter(cadapter);
@@ -156,6 +158,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			card2 = Integer.parseInt(cards[1]);
 			card1Image.setImageResource(cardDrawables[card1]);
 			card2Image.setImageResource(cardDrawables[card2]);
+		} else if (l.startsWith("curbet ")) {
+			String msg = l.substring(7);
+			curbet = Integer.parseInt(msg);
 		} else if (l.startsWith("minbet ")) {
 			String msg = l.substring(7);
 			minbet = Integer.parseInt(msg);
