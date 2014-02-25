@@ -27,7 +27,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package com.intel.c3.sample;
+package lo.wolo.pokerclient;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -55,7 +55,7 @@ import com.intel.stc.slib.IStcServInetClient;
 public abstract class AbstractServiceUsingActivity extends Activity implements ISimpleChatEventListener, IStcServInetClient 
 {
 	public static final String LOGC = "sc abstract";
-	public static final String ServiceIntent = "com.intel.c3.sample.SimpleChatService";
+	public static final String ServiceIntent = "lo.wolo.pokerclient.SimpleChatService";
 	
 	private static final int STCLIB_ACTIVITY_REQUEST = 23;
 

@@ -1,4 +1,4 @@
-package com.intel.c3.sample;
+package lo.wolo.pokerclient;
 
 import java.util.ArrayList;
 

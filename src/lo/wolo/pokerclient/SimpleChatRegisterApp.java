@@ -26,7 +26,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package com.intel.c3.sample;
+package lo.wolo.pokerclient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +45,8 @@ import com.intel.stc.utility.StcApplicationId;
  */
 public class SimpleChatRegisterApp extends AppRegisterService
 {
-	public static final String		LAUNCH_INTENT		= "com.intel.c3.sample";
-	public static final String		appId				= "7A1B397B-B576-44C4-943F-1BEF4F490C06";	
+	public static final String		LAUNCH_INTENT		= "lo.wolo.pokerclient";
+	public static final String		appId				= "E8891BDB-B4ED-422C-A955-33AD0D39CE06";	
 	// TODO Generate Simple Chat Keys
 	private static final String		clientId			= "WqODOHahg3xw6WVB0BbTMi9yazTkBoQG";
 	private static final String		clientSecret		= "i8wP2TGxoVjINdX6";

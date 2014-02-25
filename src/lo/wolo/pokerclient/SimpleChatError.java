@@ -27,14 +27,18 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package com.intel.c3.sample;
+package lo.wolo.pokerclient;
 
-/**
- * Interface from the ReadEngine and WriteEngine back to the hosting Service.
+/***
+ * There are one or two places where an unexpected error needs to just shut things down.
  * <p>
- * There is no c3 specific code here.
+ * There is nothing c3 specific here.
  */
-public interface IServiceIOListener {
-	void lineReceived( int line );
-	void remoteDisconnect();
+public class SimpleChatError extends Error {
+	private static final long serialVersionUID = -2125792772316490374L;
+	
+	public SimpleChatError( String s ) {
+		super(s);
+	}
+
 }

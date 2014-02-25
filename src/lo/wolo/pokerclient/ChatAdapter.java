@@ -27,12 +27,12 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package com.intel.c3.sample;
+package lo.wolo.pokerclient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intel.c3.sample.R;
+import lo.wolo.pokerclient.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
