@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SimpleChat</string>
+    <string name="app_name">Poker</string>
     <string name="app_description">Simple chat app description.</string>
     <string name="notification_text">has invited you to simple chat.</string>
     <string name="timeout_toast_text">Invitation to simplechat has timed out.</string>
