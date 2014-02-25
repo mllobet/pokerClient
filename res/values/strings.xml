@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">Poker</string>
-    <string name="app_description">Simple chat app description.</string>
-    <string name="notification_text">has invited you to simple chat.</string>
-    <string name="timeout_toast_text">Invitation to simplechat has timed out.</string>
-    <string name="schat_inv_text">%s invited you to Chat.</string>
+    <string name="app_description">Poker client for each player</string>
+    <string name="notification_text">has invited you to play a game.</string>
+    <string name="timeout_toast_text">Invitation to game has timed out.</string>
+    <string name="schat_inv_text">%s invited you to play a game.</string>
     <string name="discovery_node_text">Discovery Nodes</string>
     <string name="create_node_text">Create Node</string>
     <string name="join_node_text">Join Node</string>
