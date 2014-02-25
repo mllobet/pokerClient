@@ -156,8 +156,10 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			String[] cards = msg.split(" ");
 			card1 = Integer.parseInt(cards[0]);
 			card2 = Integer.parseInt(cards[1]);
-			card1Image.setImageResource(cardDrawables[card1]);
-			card2Image.setImageResource(cardDrawables[card2]);
+			if (card1 < 0) card1Image.setImageResource(R.drawable.card_back);
+			else card1Image.setImageResource(cardDrawables[card1]);
+			if (card2 < 0) card2Image.setImageResource(R.drawable.card_back);
+			else card2Image.setImageResource(cardDrawables[card2]);
 		} else if (l.startsWith("curbet ")) {
 			String msg = l.substring(7);
 			curbet = Integer.parseInt(msg);
