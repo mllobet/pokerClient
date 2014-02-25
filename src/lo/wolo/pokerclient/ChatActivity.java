@@ -35,6 +35,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.View;
 import android.widget.Button;
@@ -169,6 +170,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	private void amountDialog() {
 		final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		alert.setView(input);
 		alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
