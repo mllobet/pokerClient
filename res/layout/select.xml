@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/table"
+    android:padding="10dp"
     android:layout_height="match_parent" >
     
     <ProgressBar
@@ -92,13 +94,13 @@
 	        android:layout_gravity="right"
 	        android:text="@string/next_text"
 	        android:layout_marginTop="10dp"/>
-	    <ListView
-	        android:id="@+id/logListView"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
-	        android:transcriptMode="normal">
-	    </ListView>
+		<!--<ListView-->
+			<!--android:id="@+id/logListView"-->
+			<!--android:layout_width="match_parent"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:layout_marginTop="10dp"-->
+			<!--android:transcriptMode="normal">-->
+		<!--</ListView>-->
 	</LinearLayout>
 	
 </RelativeLayout>

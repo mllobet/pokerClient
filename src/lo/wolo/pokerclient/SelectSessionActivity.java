@@ -87,11 +87,11 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 	Button				nextButton	= null;
 	EditText 			enterNodeName = null;
 	TextView			screenLabel		= null;
-	ListView			logview		= null;
+	//ListView			logview		= null;
 	ListView 			nodelistView = null;
 	ProgressBar			progressBar;
 	LinearLayout		selectContent;
-	private DebugAdapter adapter;
+	//private DebugAdapter adapter;
 	private final static int DISCOVERY_SETUP = 21;
 	private StcLib lib;
 	private TextView emptytxtNode = null;
@@ -149,7 +149,7 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 	private void initializeUI(){
 		setContentView(R.layout.select);
 		lview = (ListView) findViewById(R.id.sessionListView);
-		logview = (ListView) findViewById(R.id.logListView);
+		//logview = (ListView) findViewById(R.id.logListView);
 		dNodeButton = (Button) findViewById(R.id.node_button);
 		createNodeButton = (Button) findViewById(R.id.create_node);
 		joinNodeButton = (Button) findViewById(R.id.join_node);
@@ -173,16 +173,16 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 		lview.setVisibility(View.GONE);
 		screenLabel.setText("Discovery Nodes");
 		
-		if(adapter == null){
-			adapter = new DebugAdapter(this);
-			adapter.setDebugFilter(DebugAdapter.DebugFlags.All);
-			logview.setAdapter(adapter);
-		}
+		//if(adapter == null){
+			//adapter = new DebugAdapter(this);
+			//adapter.setDebugFilter(DebugAdapter.DebugFlags.All);
+			//logview.setAdapter(adapter);
+		//}
 		
 		progressBar = (ProgressBar) findViewById(R.id.progress_bar);		
 		selectContent = (LinearLayout) findViewById(R.id.select_content);
 		selectContent.setVisibility(View.GONE);
-		logview.setVisibility(View.GONE);
+		//logview.setVisibility(View.GONE);
 	}
 	@Override
 	protected void onDestroy()
@@ -232,7 +232,7 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 					}
 					
 					int debugType = DebugAdapter.DebugFlags.All | DebugAdapter.DebugFlags.Verbose|DebugAdapter.DebugFlags.Discovery;
-					adapter.debugMsg(debugType , "Discovery process called sessionListChanged");
+					//adapter.debugMsg(debugType , "Discovery process called sessionListChanged");
 				}
 			}
 		});
@@ -375,14 +375,14 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 				}
 				
 				int debugType = DebugAdapter.DebugFlags.All | DebugAdapter.DebugFlags.Verbose;
-				adapter.debugMsg(debugType , "Platform prepared, onStcLibPrepared called");
+				//adapter.debugMsg(debugType , "Platform prepared, onStcLibPrepared called");
 				//StartAgent();
 
 			}
 		});
 		progressBar.setVisibility(View.GONE);
 		selectContent.setVisibility(View.VISIBLE);
-		logview.setVisibility(View.VISIBLE);
+		//logview.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -425,7 +425,7 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 				int status = lib.createDiscoveryNode(SimpleChatRegisterApp.id.appId, nodeName, flags);
 				
 				int debugType = DebugAdapter.DebugFlags.All | DebugAdapter.DebugFlags.Verbose;
-				adapter.debugMsg(debugType , "Creating Node " + nodeName + " Status: " + status);
+				//adapter.debugMsg(debugType , "Creating Node " + nodeName + " Status: " + status);
 				enterNodeName.setText(null);
 			}
 		}
@@ -454,7 +454,7 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 				int status = lib.joinDiscoveryNode(SimpleChatRegisterApp.id.appId, nodeName, flags);
 				
 				int debugType = DebugAdapter.DebugFlags.All | DebugAdapter.DebugFlags.Verbose;
-				adapter.debugMsg(debugType , "Joining Node " + nodeName + " Status: " + status);
+				//adapter.debugMsg(debugType , "Joining Node " + nodeName + " Status: " + status);
 				enterNodeName.setText(null);
 			}
 		}
@@ -485,7 +485,7 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 				int status = lib.leaveDiscoveryNode(SimpleChatRegisterApp.id.appId, value, flags);
 				
 				int debugType = DebugAdapter.DebugFlags.All | DebugAdapter.DebugFlags.Verbose;
-				adapter.debugMsg(debugType , "Leaving Node " + value + " Status: " + status);
+				//adapter.debugMsg(debugType , "Leaving Node " + value + " Status: " + status);
 			}
 		}
 		catch (StcException e)
@@ -565,11 +565,11 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 	{		
 		final int debugType = DebugAdapter.DebugFlags.All | DebugAdapter.DebugFlags.Verbose;
 		Log.i("", "discoveryNodeUpdate event.getStatus()"+event.getStatus()+event.getNode().getName()+"Event type: "+event.getEventType()+"error code: "+event.getDiscoveryNodeError());
-		adapter.debugMsg(debugType , "Discovery Node Update event called");
+		//adapter.debugMsg(debugType , "Discovery Node Update event called");
 		
 		if(event.getStatus() == 1)
 		{
-			adapter.debugMsg(debugType, "Discovery Node update failed - "+event.getDiscoveryNodeError().toString());
+			//adapter.debugMsg(debugType, "Discovery Node update failed - "+event.getDiscoveryNodeError().toString());
 			if(!event.getDiscoveryNodeError().equals(DiscoveryNodeUpdateEvent.DiscoveryNodeError.noError))
 				displayErrorToast(event.getDiscoveryNodeError().toString());
 			return;
@@ -581,28 +581,28 @@ public class SelectSessionActivity extends AbstractServiceUsingActivity implemen
 		{
 			case CREATE:
 				boolean value = nodeAdapter.addDiscoveryNode(node);
-				if(!value){
-					adapter.debugMsg(debugType , "Node '"+node.getName()+"' already exist");
-				}else{
-					adapter.debugMsg(debugType , "Creating Node "+node.getName());
-				}
+				//if(!value){
+					//adapter.debugMsg(debugType , "Node '"+node.getName()+"' already exist");
+				//}else{
+					//adapter.debugMsg(debugType , "Creating Node "+node.getName());
+				//}
 				break;
 			case DELETE:
-				adapter.debugMsg(debugType , "Deleting Node "+node.getName());
+				//adapter.debugMsg(debugType , "Deleting Node "+node.getName());
 				break;
 			case JOIN:
 				boolean temp = nodeAdapter.addDiscoveryNode(node);
-				if(!temp){
-					adapter.debugMsg(debugType , "Node '"+node.getName()+"' already joined.");
-				}else{
-					adapter.debugMsg(debugType , "Joining Node "+node.getName());
-				}
+				//if(!temp){
+					//adapter.debugMsg(debugType , "Node '"+node.getName()+"' already joined.");
+				//}else{
+					//adapter.debugMsg(debugType , "Joining Node "+node.getName());
+				//}
 				break;
 			case LEAVE:
-				adapter.debugMsg(debugType , "Leaving Node "+node.getName());
+				//adapter.debugMsg(debugType , "Leaving Node "+node.getName());
 				break;
 			case PUBLISH:
-				adapter.debugMsg(debugType , "Publishing Node "+node.getName());
+				//adapter.debugMsg(debugType , "Publishing Node "+node.getName());
 				break;
 			default:
 				break;
