@@ -156,15 +156,14 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	private void processRaise() {
 		if (amount <= 0) {
 			Toast.makeText(getApplicationContext(), "Invalid amount", Toast.LENGTH_LONG).show();
-			// TODO toast: amount is not a natural number
 			return;
 		}
 		if (amount > money) {
-			// TODO toast: not enough money
+			Toast.makeText(getApplicationContext(), "Not enough money", Toast.LENGTH_LONG).show();
 			return;
 		}
-		if (amount <= curbet) {
-			// TODO toast: raise is too low
+		if (amount < curbet) {
+			Toast.makeText(getApplicationContext(), "Raise is too low", Toast.LENGTH_LONG).show();
 			return;
 		}
 		writeLine("raise "+amount);
@@ -173,11 +172,14 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	private void processBet() {
 		if (amount <= 0) {
 			Toast.makeText(getApplicationContext(), "Invalid amount", Toast.LENGTH_LONG).show();
-			// TODO toast: amount is not a natural number
+			return;
+		}
+		if (amount <= minbet) {
+			Toast.makeText(getApplicationContext(), "Bet is too low", Toast.LENGTH_LONG).show();
 			return;
 		}
 		if (amount > money) {
-			// TODO toast: not enough money
+			Toast.makeText(getApplicationContext(), "Not enough money", Toast.LENGTH_LONG).show();
 			return;
 		}
 		writeLine("bet "+amount);
