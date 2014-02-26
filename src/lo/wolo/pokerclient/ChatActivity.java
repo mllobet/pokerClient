@@ -68,8 +68,8 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	int card1 = -1;
 	int card2 = -1;
 	int curbet = 0;
-	int minbet = 1;
-	int money = 10;
+	int minbet = 0;
+	int money  = 0;
 	int amount = 0;
 
 	static final int cardDrawables[] = {
@@ -258,6 +258,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	}
 
 	private void parseLine(String line) {
+		Log.d("ReceivedLine", " == "+line);
 		String[] lines = line.split(";");
 		for (String l : lines) {
 			Log.d("ReceivedLine", l);
