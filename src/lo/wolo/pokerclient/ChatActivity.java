@@ -59,8 +59,6 @@ import android.widget.Toast;
  */
 public class ChatActivity extends AbstractServiceUsingActivity {
 
-	ChatAdapter cadapter;
-	ListView lview;
 	TextView currentRoleView = null;
 	TextView currentMoneyView = null;
 	private Button raiseButton = null;
@@ -119,10 +117,6 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 		card1Image = (ImageView)findViewById(R.id.leftCardImage);
 		card2Image = (ImageView)findViewById(R.id.rightCardImage);
-
-		lview = (ListView)findViewById(R.id.chat_history);
-		cadapter = new ChatAdapter(getApplicationContext());
-		lview.setAdapter(cadapter);
 
 		raiseButton = (Button)findViewById(R.id.raiseButton);
 		raiseButton.setOnClickListener(new View.OnClickListener() {
@@ -339,8 +333,8 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		myHandler.post(new Runnable() {
 			public void run() {
 				List<String> lines = chatService.getLines();
-				cadapter.setNewChatList(lines);
-				cadapter.notifyDataSetChanged();
+				//cadapter.setNewChatList(lines);
+				//cadapter.notifyDataSetChanged();
 
 				for (int i = hIndex; i < lines.size(); i++) {
 					parseLine(lines.get(i));
@@ -368,13 +362,13 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	@Override
 	public void onStcLibPrepared()
 	{
-		myHandler.post(new Runnable() {
-			public void run() {
-				ListView lview = (ListView)findViewById(R.id.chat_history);	
-				lview.setAdapter(cadapter);
-				cadapter.setNewChatList(chatService.getLines());
-			}
-		});
+		//myHandler.post(new Runnable() {
+			//public void run() {
+				//ListView lview = (ListView)findViewById(R.id.chat_history);	
+				//lview.setAdapter(cadapter);
+				//cadapter.setNewChatList(chatService.getLines());
+			//}
+		//});
 	}
 	
 	@Override
