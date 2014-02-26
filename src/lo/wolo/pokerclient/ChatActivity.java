@@ -55,8 +55,6 @@ import android.widget.Toast;
  */
 public class ChatActivity extends AbstractServiceUsingActivity {
 
-	ChatAdapter cadapter;
-	ListView lview;
 	TextView currentRoleView = null;
 	TextView currentMoneyView = null;
 	private Button raiseButton = null;
@@ -111,10 +109,6 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		card1Image = (ImageView)findViewById(R.id.leftCardImage);
 		card2Image = (ImageView)findViewById(R.id.rightCardImage);
 
-		lview = (ListView)findViewById(R.id.chat_history);
-		cadapter = new ChatAdapter(getApplicationContext());
-		lview.setAdapter(cadapter);
-
 		raiseButton = (Button)findViewById(R.id.raiseButton);
 		raiseButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
@@ -153,7 +147,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		betButton = (Button)findViewById(R.id.betButton);
 		betButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				writeLine("bet");
+				betDialog();
 			}
 		});
 		
@@ -266,8 +260,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	private void parseLine(String line) {
 		String[] lines = line.split(";");
 		for (String l : lines) {
-			l = l.replace(";", "");
-			Log.d("Client", l);
+			Log.d("ReceivedLine", l);
 			if (l.startsWith("cmds ")) {
 				String msg = l.substring(5);
 				int cmds = Integer.parseInt(msg);
@@ -319,8 +312,6 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			public void run() {
 				List<String> lines = chatService.getLines();
 				String l = lines.get(lines.size()-1);
-				cadapter.setNewChatList(lines);
-				cadapter.notifyDataSetChanged();
 				parseLine(l);
 			}
 		});
@@ -346,9 +337,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	{
 		myHandler.post(new Runnable() {
 			public void run() {
-				ListView lview = (ListView)findViewById(R.id.chat_history);	
-				lview.setAdapter(cadapter);
-				cadapter.setNewChatList(chatService.getLines());
+				//ListView lview = (ListView)findViewById(R.id.chat_history);	
+				//lview.setAdapter(cadapter);
+				//cadapter.setNewChatList(chatService.getLines());
 			}
 		});
 	}
