@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Poker</string>
-    <string name="app_description">Poker client for each player</string>
+    <string name="app_name">Peer to Poker</string>
+    <string name="app_description">Peer to Poker client for each player</string>
     <string name="notification_text">has invited you to play a game.</string>
     <string name="timeout_toast_text">Invitation to game has timed out.</string>
     <string name="schat_inv_text">%s invited you to play a game.</string>
