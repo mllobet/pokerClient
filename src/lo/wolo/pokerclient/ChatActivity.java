@@ -264,8 +264,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	}
 
 	private void parseLine(String line) {
-		String[] lines = line.split(";", -1);
+		String[] lines = line.split(";");
 		for (String l : lines) {
+			l = l.replace(";", "");
 			Log.d("Client", l);
 			if (l.startsWith("cmds ")) {
 				String msg = l.substring(5);
