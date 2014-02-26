@@ -43,6 +43,7 @@ import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -105,6 +106,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.chat);
 
 		currentMoneyView = (TextView)findViewById(R.id.currentMoney);
@@ -290,7 +294,8 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 				callButton .setEnabled((cmds & Constants.CALL ) != 0);
 				allinButton.setEnabled((cmds & Constants.ALLIN) != 0);
 				betButton  .setEnabled((cmds & Constants.BET  ) != 0);
-				if ((cmds & 63) != 0) {
+				Log.d("CMDS", " > "+cmds);
+				if (cmds > 0) {
 					Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 					v.vibrate(500);
 				}
