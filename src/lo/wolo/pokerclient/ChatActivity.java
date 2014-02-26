@@ -74,6 +74,8 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	int money  = 0;
 	int amount = 0;
 
+	int hIndex = 0;
+
 	static final int cardDrawables[] = {
 		R.drawable.card_00, R.drawable.card_01, R.drawable.card_02, R.drawable.card_03, R.drawable.card_04,
 		R.drawable.card_05, R.drawable.card_06, R.drawable.card_07, R.drawable.card_08, R.drawable.card_09,
@@ -320,10 +322,13 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		myHandler.post(new Runnable() {
 			public void run() {
 				List<String> lines = chatService.getLines();
-				String l = lines.get(lines.size()-1);
 				cadapter.setNewChatList(lines);
 				cadapter.notifyDataSetChanged();
-				parseLine(l);
+
+				for (int i = hIndex; i < lines.size(); i++) {
+					parseLine(lines.get(i));
+				}
+				hIndex = lines.size()-1;
 			}
 		});
 	}
