@@ -7,10 +7,16 @@
      >
 
     <TextView
-        android:id="@+id/currentMoney"
+        android:id="@+id/currentRole"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:textSize="22sp" >  
+    </TextView>
+
+    <TextView
+        android:id="@+id/currentMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="$ 0"
         android:textSize="26sp" >  
     </TextView>

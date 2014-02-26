@@ -22,4 +22,9 @@
     <string name="bet">Bet</string>
     <string name="card_image_left">Left card</string>
     <string name="card_image_right">Right card</string>
+
+    <string name="role_none">No Role</string>
+    <string name="role_dealer">Dealer</string>
+    <string name="role_smallblind">Small Blind</string>
+    <string name="role_bigblind">Big Blind</string>
 </resources>

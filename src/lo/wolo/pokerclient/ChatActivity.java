@@ -34,6 +34,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
@@ -55,6 +56,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 
 	ChatAdapter cadapter;
 	ListView lview;
+	TextView currentRoleView = null;
 	TextView currentMoneyView = null;
 	private Button raiseButton = null;
 	private Button foldButton = null;
@@ -70,6 +72,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 	int minbet = 1;
 	int money = 10;
 	int amount = 0;
+
 	static final int cardDrawables[] = {
 		R.drawable.card_00, R.drawable.card_01, R.drawable.card_02, R.drawable.card_03, R.drawable.card_04,
 		R.drawable.card_05, R.drawable.card_06, R.drawable.card_07, R.drawable.card_08, R.drawable.card_09,
@@ -83,6 +86,15 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		R.drawable.card_45, R.drawable.card_46, R.drawable.card_47, R.drawable.card_48, R.drawable.card_49,
 		R.drawable.card_50, R.drawable.card_51
 	};
+
+	static enum roles {
+		NONE,
+		SMALLBLIND,
+		BIGBLIND,
+		DEALER
+	};
+
+	roles role = roles.NONE;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +102,10 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		setContentView(R.layout.chat);
 
 		currentMoneyView = (TextView)findViewById(R.id.currentMoney);
-		currentMoneyView.setText("$ " + money);
+		updateMoney();
+
+		currentRoleView = (TextView)findViewById(R.id.currentRole);
+		updateRole();
 
 		card1Image = (ImageView)findViewById(R.id.leftCardImage);
 		card2Image = (ImageView)findViewById(R.id.rightCardImage);
@@ -224,6 +239,29 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		alert.show();
 	}
 
+	private void updateRole() {
+		switch (role) {
+			case NONE:
+				currentRoleView.setText(R.string.role_none);
+				break;
+			case DEALER:
+				currentRoleView.setText(R.string.role_dealer);
+				break;
+			case SMALLBLIND:
+				currentRoleView.setText(R.string.role_smallblind);
+				break;
+			case BIGBLIND:
+				currentRoleView.setText(R.string.role_bigblind);
+				break;
+		}
+	}
+
+	private void updateMoney() {
+		currentMoneyView.setText("$ " + money);
+		int color = (money > 0) ? Color.GREEN : Color.RED;
+		currentMoneyView.setTextColor(color);
+	}
+
 	private void parseLine(String l) {
 		if (l.startsWith("cmds ")) {
 			String msg = l.substring(5);
@@ -252,7 +290,20 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		} else if (l.startsWith("money ")) {
 			String msg = l.substring(6);
 			money = Integer.parseInt(msg);
-			currentMoneyView.setText("$ " + money);
+			updateMoney();
+		} else if (l.startsWith("role ")) {
+			String msg = l.substring(5);
+			if (msg.equals("none"))
+				role = roles.NONE;
+			else if (msg.equals("smallBlind"))
+				role = roles.SMALLBLIND;
+			else if (msg.equals("bigBlind"))
+				role = roles.BIGBLIND;
+			else if (msg.equals("dealer"))
+				role = roles.DEALER;
+			else
+				return;
+			updateRole();
 		}
 	}
 
