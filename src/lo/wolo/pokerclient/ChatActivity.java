@@ -153,7 +153,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		betButton = (Button)findViewById(R.id.betButton);
 		betButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				writeLine("bet");
+				betDialog();
 			}
 		});
 		
@@ -269,8 +269,7 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		Log.d("ReceivedLine", " == "+line);
 		String[] lines = line.split(";");
 		for (String l : lines) {
-			l = l.replace(";", "");
-			Log.d("Client", l);
+			Log.d("ReceivedLine", l);
 			if (l.startsWith("cmds ")) {
 				String msg = l.substring(5);
 				int cmds = Integer.parseInt(msg);
