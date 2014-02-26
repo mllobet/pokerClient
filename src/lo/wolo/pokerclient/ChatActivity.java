@@ -294,7 +294,6 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 				callButton .setEnabled((cmds & Constants.CALL ) != 0);
 				allinButton.setEnabled((cmds & Constants.ALLIN) != 0);
 				betButton  .setEnabled((cmds & Constants.BET  ) != 0);
-				Log.d("CMDS", " > "+cmds);
 				if (cmds > 0) {
 					Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 					v.vibrate(500);
