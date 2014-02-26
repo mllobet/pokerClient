@@ -4,19 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:padding="10dp"
      >
 
     <TextView
         android:id="@+id/currentRole"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp" >  
+        android:padding="2dp"
+        android:textSize="20sp" >  
     </TextView>
 
     <TextView
         android:id="@+id/currentMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="2dp"
         android:text="$ 0"
         android:textSize="26sp" >  
     </TextView>

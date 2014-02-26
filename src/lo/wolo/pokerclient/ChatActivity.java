@@ -37,6 +37,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.View;
 import android.widget.Button;
@@ -262,48 +263,52 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 		currentMoneyView.setTextColor(color);
 	}
 
-	private void parseLine(String l) {
-		if (l.startsWith("cmds ")) {
-			String msg = l.substring(5);
-			int cmds = Integer.parseInt(msg);
-			raiseButton.setEnabled((cmds & Constants.RAISE) != 0);
-			foldButton .setEnabled((cmds & Constants.FOLD ) != 0);
-			checkButton.setEnabled((cmds & Constants.CHECK) != 0);
-			callButton .setEnabled((cmds & Constants.CALL ) != 0);
-			allinButton.setEnabled((cmds & Constants.ALLIN) != 0);
-			betButton  .setEnabled((cmds & Constants.BET  ) != 0);
-		} else if (l.startsWith("cards ")) {
-			String msg = l.substring(6);
-			String[] cards = msg.split(" ");
-			card1 = Integer.parseInt(cards[0]);
-			card2 = Integer.parseInt(cards[1]);
-			if (card1 < 0) card1Image.setImageResource(R.drawable.card_back);
-			else card1Image.setImageResource(cardDrawables[card1]);
-			if (card2 < 0) card2Image.setImageResource(R.drawable.card_back);
-			else card2Image.setImageResource(cardDrawables[card2]);
-		} else if (l.startsWith("curbet ")) {
-			String msg = l.substring(7);
-			curbet = Integer.parseInt(msg);
-		} else if (l.startsWith("minbet ")) {
-			String msg = l.substring(7);
-			minbet = Integer.parseInt(msg);
-		} else if (l.startsWith("money ")) {
-			String msg = l.substring(6);
-			money = Integer.parseInt(msg);
-			updateMoney();
-		} else if (l.startsWith("role ")) {
-			String msg = l.substring(5);
-			if (msg.equals("none"))
-				role = roles.NONE;
-			else if (msg.equals("smallBlind"))
-				role = roles.SMALLBLIND;
-			else if (msg.equals("bigBlind"))
-				role = roles.BIGBLIND;
-			else if (msg.equals("dealer"))
-				role = roles.DEALER;
-			else
-				return;
-			updateRole();
+	private void parseLine(String line) {
+		String[] lines = line.split(";", -1);
+		for (String l : lines) {
+			Log.d("Client", l);
+			if (l.startsWith("cmds ")) {
+				String msg = l.substring(5);
+				int cmds = Integer.parseInt(msg);
+				raiseButton.setEnabled((cmds & Constants.RAISE) != 0);
+				foldButton .setEnabled((cmds & Constants.FOLD ) != 0);
+				checkButton.setEnabled((cmds & Constants.CHECK) != 0);
+				callButton .setEnabled((cmds & Constants.CALL ) != 0);
+				allinButton.setEnabled((cmds & Constants.ALLIN) != 0);
+				betButton  .setEnabled((cmds & Constants.BET  ) != 0);
+			} else if (l.startsWith("cards ")) {
+				String msg = l.substring(6);
+				String[] cards = msg.split(" ");
+				card1 = Integer.parseInt(cards[0]);
+				card2 = Integer.parseInt(cards[1]);
+				if (card1 < 0) card1Image.setImageResource(R.drawable.card_back);
+				else card1Image.setImageResource(cardDrawables[card1]);
+				if (card2 < 0) card2Image.setImageResource(R.drawable.card_back);
+				else card2Image.setImageResource(cardDrawables[card2]);
+			} else if (l.startsWith("curbet ")) {
+				String msg = l.substring(7);
+				curbet = Integer.parseInt(msg);
+			} else if (l.startsWith("minbet ")) {
+				String msg = l.substring(7);
+				minbet = Integer.parseInt(msg);
+			} else if (l.startsWith("money ")) {
+				String msg = l.substring(6);
+				money = Integer.parseInt(msg);
+				updateMoney();
+			} else if (l.startsWith("role ")) {
+				String msg = l.substring(5);
+				if (msg.equals("none"))
+					role = roles.NONE;
+				else if (msg.equals("smallBlind"))
+					role = roles.SMALLBLIND;
+				else if (msg.equals("bigBlind"))
+					role = roles.BIGBLIND;
+				else if (msg.equals("dealer"))
+					role = roles.DEALER;
+				else
+					return;
+				updateRole();
+			}
 		}
 	}
 
