@@ -223,6 +223,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			}
 		});
 		alert.show();
+		input.setFocusableInTouchMode(true);
+		input.setFocusable(true);
+		input.requestFocus();
 	}
 
 	private void betDialog() {
@@ -245,6 +248,9 @@ public class ChatActivity extends AbstractServiceUsingActivity {
 			}
 		});
 		alert.show();
+		input.setFocusableInTouchMode(true);
+		input.setFocusable(true);
+		input.requestFocus();
 	}
 
 	private void updateRole() {
